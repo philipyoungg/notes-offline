@@ -1,0 +1,54 @@
+* {
+  font-family: sans-serif;
+}
+
+h6 {
+  margin: 0;
+  color: rgb(150, 150, 150);
+  font-weight: normal;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 0.25rem;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  max-width: 26rem;
+}
+
+li {
+  padding: 0.5rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+li:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+a {
+  margin-right: 2rem;
+}
+
+body {
+  padding: 3rem;
+}
+
+input {
+  padding: 0.5rem 0.875rem;
+  font-size: 14px;
+}
+
+.todoHeader {
+  margin-bottom: 2rem;
+}
+
+.completedTodo {
+  text-decoration: line-through;
+}
+
+.active {
+  font-weight: bold;
+}

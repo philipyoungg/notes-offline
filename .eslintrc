@@ -1,0 +1,8 @@
+{
+  'extends': 'airbnb',
+  'semi': ['error', 'never'],
+  'env': {
+    'browser': true,
+    'node': true,
+  },
+}
