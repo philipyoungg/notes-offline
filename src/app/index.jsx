@@ -4,8 +4,9 @@ import { Provider } from 'react-redux'
 import { Link, Router, Route, hashHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 
+import './style/style.scss'
+
 import App from './components/app/App'
-import Counter from './components/counter/Counter'
 
 import store from './store/configureStore'
 

@@ -1,13 +1,20 @@
 const path = require('path')
+const NpmInstallPlugin = require('npm-install-webpack-plugin')
+const autoprefixer = require('autoprefixer')
 
-const APP_DIR =  path.join(__dirname, 'src/app')
-const BUILD_DIR =  path.join(__dirname, 'dist/app')
+const PATH = {
+  SRC: path.join(__dirname, 'src/app'),
+  DIST: path.join(__dirname, 'dist/app'),
+}
+
+PATH.SRC_INDEX =  PATH.SRC + '/index'
+PATH.SRC_STYLE = PATH.SRC + '/style/style'
 
 const config = {
-  entry: APP_DIR + '/index',
+  entry: PATH.SRC_INDEX,
 
   output: {
-    path: BUILD_DIR,
+    path: PATH.DIST,
     filename: 'bundle.js',
   },
 
@@ -21,11 +28,20 @@ const config = {
     loaders: [
       {
         test: /\.jsx?$/,
-        include: APP_DIR,
+        include: PATH.SRC,
         loaders: ['babel'],
         exclude: /node_modules/,
       },
+      {
+        test: /\.scss$/,
+        loaders: ['style', 'css', 'postcss', 'sass'],
+        include: PATH.SRC_STYLE,
+      },
     ],
+  },
+
+  postcss() {
+    return [autoprefixer]
   },
 }
 
