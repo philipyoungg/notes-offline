@@ -1,7 +1,7 @@
-export function createConstants(args) {
-  const actions = {}
+export default (args) => {
+  const actions = {};
   args.forEach(arg => {
-    actions[arg] = arg
-  })
-  return actions
-}
+    actions[arg] = arg;
+  });
+  return actions;
+};

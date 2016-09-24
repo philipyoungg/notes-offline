@@ -1,16 +1,16 @@
-import React from 'react'
-import { render } from 'react-dom'
-import { Provider } from 'react-redux'
-import { Link, Router, Route, hashHistory } from 'react-router'
-import { syncHistoryWithStore } from 'react-router-redux'
+import React from 'react';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+import { Router, Route, hashHistory } from 'react-router';
+import { syncHistoryWithStore } from 'react-router-redux';
 
-import './style/style.scss'
+import './style/style.scss';
 
-import App from './components/app/App'
+import App from './components/app/App';
 
-import store from './store/configureStore'
+import store from './store/configureStore';
 
-const history = syncHistoryWithStore(hashHistory, store)
+const history = syncHistoryWithStore(hashHistory, store);
 
 render(
   <Provider store={store}>
@@ -19,4 +19,4 @@ render(
     </Router>
   </Provider>,
   document.getElementById('app')
-)
+);

@@ -1,11 +1,9 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { increment } from './AppReducer'
+import React from 'react';
 
 const App = () => (
   <div>
-    Hello! You can replace this state!
+    Hello! You can replace this fucking state!
   </div>
-)
+);
 
-export default App
+export default App;
