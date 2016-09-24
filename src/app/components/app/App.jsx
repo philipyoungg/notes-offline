@@ -1,8 +1,11 @@
 import React from 'react';
+import NoteMenu from '../notes/NoteMenu';
+import NoteContainer from '../notes/NoteContainer';
 
 const App = () => (
-  <div>
-    Hello! You can replace this fucking state!
+  <div className="w-100 vh-100 overflow-hidden">
+    <NoteMenu />
+    <NoteContainer />
   </div>
 );
 
