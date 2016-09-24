@@ -1,11 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-
-const updateNote = (id, body) => ({
-  type: 'UPDATE_NOTE',
-  id,
-  body,
-});
+import { updateNote } from './NoteAction';
 
 class TextArea extends Component {
   constructor(props) {
@@ -38,7 +33,9 @@ class TextArea extends Component {
 }
 
 TextArea.propTypes = {
+  id: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 export default connect()(TextArea);

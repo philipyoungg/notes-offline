@@ -1,16 +1,12 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-
-const changeNote = (id) => ({
-  type: 'CHANGE_ACTIVE_NOTE',
-  id,
-});
+import { changeActiveNote } from './NoteAction';
 
 const Note = ({ id, time, title, body, active, dispatch }) => {
   const bg = active ? 'bg-near-white' : '';
   return (
     <div
-      onClick={() => { dispatch(changeNote(id)); }}
+      onClick={() => { dispatch(changeActiveNote(id)); }}
       className={`pa3 db bb b--near-white ${bg}`}
     >
       <p className="f7 mb2 black-40">{time}</p>
@@ -23,7 +19,7 @@ const Note = ({ id, time, title, body, active, dispatch }) => {
 };
 
 Note.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   time: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   body: PropTypes.string.isRequired,

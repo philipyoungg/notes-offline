@@ -4,7 +4,7 @@ import TextArea from './TextArea';
 
 const NoteEdit = ({ id, time, title, body }) => (
   <div className="w-100 pa4">
-    <h1 className="f2 mb1" contentEditable="">{title}</h1>
+    <h1 className="f2 mb1">{title}</h1>
     <p className="f5 black-40 mb4">{time}</p>
     <TextArea
       value={body}
@@ -14,19 +14,21 @@ const NoteEdit = ({ id, time, title, body }) => (
 );
 
 NoteEdit.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   time: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   body: PropTypes.string.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 const mapState = (state) => {
-  const notes = state.notes;
+  let activeNote = state.notes.data.filter(note => state.notes.activeNote === note.id);
+  activeNote = activeNote[0];
   return {
-    id: notes.activeNote,
-    time: notes.data[notes.activeNote].time,
-    title: notes.data[notes.activeNote].title,
-    body: notes.data[notes.activeNote].body,
+    id: activeNote.id,
+    time: activeNote.time,
+    title: activeNote.title,
+    body: activeNote.body,
   };
 };
 
