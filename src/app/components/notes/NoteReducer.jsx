@@ -48,6 +48,19 @@ Clearly, not the first time he say this word.`
 
 const notes = (state = defaultState, action) => {
   switch (action.type) {
+    case 'UPDATE_NOTE':
+      return {
+        ...state,
+        data: state.data.map(note => {
+          if (action.id !== note.id) return note
+          return {
+            ...note,
+            body: action.body
+          }
+        })
+      }
+    console.log(state)
+      return state;
     case 'CHANGE_ACTIVE_NOTE':
       return {
         ...state,
