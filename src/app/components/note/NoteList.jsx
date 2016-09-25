@@ -1,12 +1,12 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import Note from './Note';
+import NoteItem from './NoteItem';
 
 const NoteList = ({ notes }) => (
-  <div className="h-100 mw5 overflow-scroll br b--near-white flex-shrink-0">
+  <div className="h-list mw5 overflow-scroll br b--near-white flex-shrink-0">
     {notes.map(note =>
-      <Note
+      <NoteItem
         key={note.id}
         {...note}
       />

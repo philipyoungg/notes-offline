@@ -1,5 +1,6 @@
 const path = require('path');
 const autoprefixer = require('autoprefixer');
+const webpack = require('webpack');
 
 const PATH = {
   SRC: path.join(__dirname, 'src/app'),
@@ -38,7 +39,6 @@ const config = {
       },
     ],
   },
-
   postcss() {
     return [autoprefixer];
   },

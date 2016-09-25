@@ -1,7 +1,7 @@
 {
-  "name": "react-test",
+  "name": "notesOffline",
   "version": "0.3.0",
-  "description": "",
+  "description": "react project for notes that works offline",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -42,6 +42,7 @@
     "react-dom": "^15.3.0",
     "react-lifecycle-wrap-addon": "0.0.2",
     "react-redux": "^4.4.5",
+    "react-redux-form": "^1.0.0-beta.12",
     "react-router": "^2.7.0",
     "react-router-redux": "^4.0.5",
     "redux": "^3.5.2",

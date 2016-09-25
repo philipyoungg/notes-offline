@@ -1,7 +1,9 @@
-import { createConstants } from '../utils/Utils';
+import createContsants from '../utils/Utils';
 
-const types = createConstants([
-  // replace this to create Constants automagically
+export default createContsants([
+  'ADD_NOTE',
+  'ARCHIVE_NOTE',
+  'CHANGE_ACTIVE_NOTE',
+  'UPDATE_NOTE_TITLE',
+  'UPDATE_NOTE_BODY',
 ]);
-
-export default types;

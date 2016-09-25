@@ -2,6 +2,7 @@
   flex-wrap: nowrap;
 }
 
+input:focus,
 textarea:focus {
   outline: none;
 }
@@ -26,4 +27,9 @@ h5,
 h6,
 p {
   margin: 0 0 1rem;
+}
+
+.h-list {
+  // minus menu height
+  height: calc(100vh - 51px);
 }

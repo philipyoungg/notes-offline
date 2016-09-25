@@ -1,23 +1,24 @@
 import { v4 } from 'uuid';
+import type from '../../constants/actionTypes';
 
 export const addNote = (id) => ({
-  type: 'ADD_NOTE',
+  type: type.ADD_NOTE,
   id,
 });
 
 export const changeActiveNote = (id) => ({
-  type: 'CHANGE_ACTIVE_NOTE',
+  type: type.CHANGE_ACTIVE_NOTE,
   id,
 });
 
-export const updateNote = (id, body) => ({
-  type: 'UPDATE_NOTE',
+export const updateNoteBody = (id, body) => ({
+  type: type.UPDATE_NOTE_BODY,
   id,
   body,
 });
 
 export const updateNoteTitle = (id, title) => ({
-  type: 'UPDATE_NOTE_TITLE',
+  type: type.UPDATE_NOTE_TITLE,
   id,
   title,
 });
