@@ -1,6 +1,6 @@
 {
   "name": "notesOffline",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "react project for notes that works offline",
   "main": "index.js",
   "scripts": {
