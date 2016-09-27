@@ -4,7 +4,7 @@ import { addNoteAndFocusToEdit } from './NoteAction';
 
 const NoteMenu = ({ handleClick }) => (
   <div
-    className="flex items-center pa2 w-100 bb b--near-white"
+    className="fixed flex items-center h3 w-100 pl3 bb b--near-white"
   >
     <p
       onClick={() => { handleClick(); }}

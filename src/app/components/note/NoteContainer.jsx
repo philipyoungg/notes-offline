@@ -3,7 +3,7 @@ import NoteList from './NoteList';
 import NoteEdit from './NoteEdit';
 
 const NoteContainer = () => (
-  <div className="flex flex-row flex-nowrap">
+  <div className="fixed flex flex-row flex-nowrap w-100 mt5">
     <NoteList />
     <NoteEdit />
   </div>

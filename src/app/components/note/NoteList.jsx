@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import NoteItem from './NoteItem';
 
 const NoteList = ({ notes }) => (
-  <div className="vh-100 overflow-scroll mw5 br b--near-white flex-shrink-0">
+  <div className="overflow-scroll mw5 h-list br b--near-white flex-shrink-0 overflow-scroll">
     {notes.map(note =>
       <NoteItem
         key={note.id}
