@@ -25,8 +25,7 @@ const defaultState = [
     time: '2 January, 2016, 01:00',
     title: 'Change the life, change environment',
     archived: 0,
-    body: `John just got home after a long meeting. He opens his apartment
-    studio and scans the surrounding. There’s his bluetooth speaker, camera,
+    body: `John just got home after a long meeting. He opens his apartment studio and scans the surrounding. There’s his bluetooth speaker, camera,
     iPad, and his favorite couch.
 
 “Gosh, I’m tired. I guess I’ll watch some movies before I have my dinner”.

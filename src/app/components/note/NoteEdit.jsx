@@ -12,7 +12,7 @@ class NoteEdit extends Component {
     const { id, time, title, body, handleTitle, handleBody } = this.props;
     return (
       <form
-        className="w-100 h-list pa4 overflow-scroll"
+        className="w-100 h-list pa5 overflow-scroll"
         ref={node => { this.node = node; }}
       >
         <input
@@ -40,18 +40,19 @@ NoteEdit.propTypes = {
 };
 
 const mapState = (state) => {
-  const note = state.notes.find(n => state.activeNote === n.id);
+  const { id, time, title, body } = state.notes.find(note =>
+    state.activeNote === note.id);
   return {
-    id: note.id,
-    time: note.time,
-    title: note.title,
-    body: note.body,
+    id,
+    time,
+    title,
+    body,
   };
 };
 
 const mapDispatch = (dispatch) => ({
-  handleTitle: (id, e) => { dispatch(updateNoteTitle(id, e.target.value)); },
-  handleBody: (id, e) => { dispatch(updateNoteBody(id, e.target.value)); },
+  handleTitle: (id, e) => dispatch(updateNoteTitle(id, e.target.value)),
+  handleBody: (id, e) => dispatch(updateNoteBody(id, e.target.value)),
 });
 
 export default connect(mapState, mapDispatch)(NoteEdit);

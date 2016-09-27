@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import NoteMenu from '../note/NoteMenu';
 import NoteContainer from '../note/NoteContainer';
 
@@ -8,5 +8,9 @@ const App = () => (
     <NoteContainer />
   </div>
 );
+
+App.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 export default App;

@@ -12,10 +12,8 @@ class TextArea extends Component {
     const { id, body, handleBody } = this.props;
     return (
       <textarea
-        className="input-reset w-100 h-100 bw0 db black-80 lh-copy"
+        className="input-reset w-100 bw0 db black-80 h-list lh-copy"
         placeholder="Enter new note..."
-        cols="10"
-        rows="30"
         ref={node => { this.node = node; }}
         value={body}
         onChange={(input) => { handleBody(id, input); }}

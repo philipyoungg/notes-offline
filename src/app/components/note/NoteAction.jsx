@@ -17,7 +17,7 @@ export const changeActiveNote = (id) => ({
 });
 
 export const changeNoteFilter = (filter) => ({
-  type: type.CHANGE_ACTIVE_NOTE,
+  type: type.CHANGE_NOTE_FILTER,
   filter,
 });
 
@@ -54,8 +54,8 @@ export const archiveThenChangeActiveNote = (id) => (dispatch, getState) => {
     //
     const notes = getState().notes;
     const currIndex = notes.findIndex(note => note.id === id);
-    const nextIndex = findObjWithOffset(['archived', 0], currIndex, notes).id;
-    dispatch(changeActiveNote(nextIndex));
+    const nextId = findObjWithOffset(['archived', 0], currIndex, notes).id;
+    dispatch(changeActiveNote(nextId));
   } else {
     return;
   }

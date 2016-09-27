@@ -2,12 +2,12 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { changeActiveNote, archiveThenChangeActiveNote } from './NoteAction';
 
-const Note = ({ id, time, title, body, active, handleClick, handleDelete }) => {
+const NoteItem = ({ id, time, title, body, active, handleClick, handleDelete }) => {
   const bg = active ? 'bg-near-white' : '';
   return (
     <div
-      onClick={() => { handleClick(id); }}
       className={`relative pa3 db bb b--near-white ${bg}`}
+      onClick={() => { handleClick(id); }}
     >
       <div className="cf">
         <p className="fl f7 mb2 black-40">{time}</p>
@@ -26,7 +26,7 @@ const Note = ({ id, time, title, body, active, handleClick, handleDelete }) => {
   );
 };
 
-Note.propTypes = {
+NoteItem.propTypes = {
   id: PropTypes.string.isRequired,
   time: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
@@ -41,11 +41,11 @@ const mapState = (state, ownProps) => ({
 });
 
 const mapDispatch = (dispatch) => ({
-  handleClick: (id) => dispatch(changeActiveNote(id)),
   handleDelete: (e, id) => {
     e.stopPropagation();
     dispatch(archiveThenChangeActiveNote(id));
   },
+  handleClick: (id) => dispatch(changeActiveNote(id)),
 });
 
-export default connect(mapState, mapDispatch)(Note);
+export default connect(mapState, mapDispatch)(NoteItem);
