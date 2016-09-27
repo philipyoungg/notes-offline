@@ -6,9 +6,7 @@ import TextArea from './TextArea';
 
 class NoteEdit extends Component {
   componentDidUpdate(prevProps) {
-    if (prevProps.title !== this.props.title) {
-      this.node.scrollTop = 0;
-    }
+    if (prevProps.title !== this.props.title) this.node.scrollTop = 0;
   }
   render() {
     const { id, time, title, body, handleTitle, handleBody } = this.props;
