@@ -2,11 +2,11 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { changeActiveNote } from './NoteAction';
 
-const Note = ({ id, time, title, body, active, dispatch }) => {
+const Note = ({ id, time, title, body, active, handleClick }) => {
   const bg = active ? 'bg-near-white' : '';
   return (
     <div
-      onClick={() => { dispatch(changeActiveNote(id)); }}
+      onClick={() => { handleClick(id); }}
       className={`pa3 db bb b--near-white ${bg}`}
     >
       <p className="f7 mb2 black-40">{time}</p>
@@ -24,11 +24,15 @@ Note.propTypes = {
   title: PropTypes.string.isRequired,
   body: PropTypes.string.isRequired,
   active: PropTypes.bool.isRequired,
-  dispatch: PropTypes.func.isRequired,
+  handleClick: PropTypes.func.isRequired,
 };
 
 const mapState = (state, ownProps) => ({
   active: state.notes.activeNote === ownProps.id,
 });
 
-export default connect(mapState)(Note);
+const mapDispatch = (dispatch) => ({
+  handleClick: (id) => dispatch(changeActiveNote(id)),
+});
+
+export default connect(mapState, mapDispatch)(Note);
