@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { addNoteAndFocusToEdit } from './NoteAction';
+import { addNoteThenFocusToEdit } from './NoteAction';
 
 const NoteMenu = ({ handleClick }) => (
   <div
@@ -18,7 +18,7 @@ NoteMenu.propTypes = {
 };
 
 const mapDispatch = (dispatch) => ({
-  handleClick: () => { dispatch(addNoteAndFocusToEdit()); },
+  handleClick: () => { dispatch(addNoteThenFocusToEdit()); },
 });
 
 export default connect(null, mapDispatch)(NoteMenu);

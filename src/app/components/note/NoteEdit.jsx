@@ -40,8 +40,7 @@ NoteEdit.propTypes = {
 };
 
 const mapState = (state) => {
-  const { data, activeNote } = state.notes;
-  const note = data.find((n) => activeNote === n.id);
+  const note = state.notes.find(n => state.activeNote === n.id);
   return {
     id: note.id,
     time: note.time,

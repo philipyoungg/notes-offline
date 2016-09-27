@@ -6,9 +6,19 @@ export const addNote = (id) => ({
   id,
 });
 
+export const toggleArchiveNote = (id) => ({
+  type: type.TOGGLE_ARCHIVE_NOTE,
+  id,
+});
+
 export const changeActiveNote = (id) => ({
   type: type.CHANGE_ACTIVE_NOTE,
   id,
+});
+
+export const changeNoteFilter = (filter) => ({
+  type: type.CHANGE_ACTIVE_NOTE,
+  filter,
 });
 
 export const updateNoteBody = (id, body) => ({
@@ -23,8 +33,30 @@ export const updateNoteTitle = (id, title) => ({
   title,
 });
 
-export const addNoteAndFocusToEdit = () => (dispatch) => {
+export const addNoteThenFocusToEdit = () => (dispatch) => {
   const id = v4();
   dispatch(addNote(id));
   dispatch(changeActiveNote(id));
+};
+
+const findObjWithOffset = (props, startIndex, array) => {
+  let i = startIndex + 1;
+  while (array[i][props[0]] !== props[1] && i <= array.length) {
+    i++;
+  }
+  return array[i];
+};
+
+export const archiveThenChangeActiveNote = (id) => (dispatch, getState) => {
+  const activeNote = getState().activeNote;
+  dispatch(toggleArchiveNote(id));
+  if (activeNote === id) {
+    //
+    const notes = getState().notes;
+    const currIndex = notes.findIndex(note => note.id === id);
+    const nextIndex = findObjWithOffset(['archived', 0], currIndex, notes).id;
+    dispatch(changeActiveNote(nextIndex));
+  } else {
+    return;
+  }
 };
