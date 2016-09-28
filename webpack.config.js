@@ -1,10 +1,11 @@
+/* eslint-disable import/no-extraneous-dependencies */
+
 const path = require('path');
 const autoprefixer = require('autoprefixer');
-const webpack = require('webpack');
 
 const PATH = {
-  SRC: path.join(__dirname, 'src/app'),
-  DIST: path.join(__dirname, 'dist/app'),
+  SRC: path.join(__dirname, 'src/client'),
+  DEST: path.join(__dirname, 'dist/app'),
 };
 
 PATH.SRC_INDEX = `${PATH.SRC}/index`;
@@ -14,7 +15,7 @@ const config = {
   entry: PATH.SRC_INDEX,
 
   output: {
-    path: PATH.DIST,
+    path: PATH.DEST,
     filename: 'bundle.js',
   },
 
@@ -22,6 +23,12 @@ const config = {
 
   resolve: {
     extensions: ['', '.js', '.jsx'],
+  },
+
+  devServer: {
+    contentBase: '/dist/app/',
+    hot: true,
+    inline: true,
   },
 
   module: {
