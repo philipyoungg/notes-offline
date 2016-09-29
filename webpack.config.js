@@ -2,6 +2,9 @@
 
 const path = require('path');
 const autoprefixer = require('autoprefixer');
+const webpack = require('webpack');
+const NpmInstallPlugin = require('npm-install-webpack-plugin');
+
 
 const PATH = {
   SRC: path.join(__dirname, 'src/client'),
@@ -26,8 +29,7 @@ const config = {
   },
 
   devServer: {
-    contentBase: '/dist/app/',
-    hot: true,
+    contentBase: PATH.DEST,
     inline: true,
   },
 
@@ -49,6 +51,10 @@ const config = {
   postcss() {
     return [autoprefixer];
   },
+  plugins: [
+    new NpmInstallPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+  ],
 };
 
 module.exports = config;

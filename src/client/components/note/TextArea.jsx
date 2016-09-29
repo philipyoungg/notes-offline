@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 // import { connect } from 'react-redux';
-
 class TextArea extends Component {
   componentDidMount() {
     this.node.focus();
@@ -21,11 +20,9 @@ class TextArea extends Component {
     );
   }
 }
-
 TextArea.propTypes = {
   id: PropTypes.string.isRequired,
   body: PropTypes.string.isRequired,
   handleBody: PropTypes.func.isRequired,
 };
-
 export default TextArea;

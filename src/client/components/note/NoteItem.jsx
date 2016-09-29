@@ -7,13 +7,13 @@ const NoteItem = ({ id, time, title, body, active, handleClick, handleDelete }) 
   return (
     <div
       className={`relative pa3 db bb b--near-white ${bg}`}
-      onClick={() => { handleClick(id); }}
+      onClick={() => handleClick(id)}
     >
       <div className="cf">
         <p className="fl f7 mb2 black-40">{time}</p>
         <p
           className="fr f7 mb2 black-30 underline"
-          onClick={(e) => { handleDelete(e, id); }}
+          onClick={(e) => handleDelete(e, id)}
         >
         delete
         </p>

@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+
 import { updateNoteTitle, updateNoteBody } from './NoteAction';
 
 import TextArea from './TextArea';
@@ -40,8 +41,8 @@ NoteEdit.propTypes = {
 };
 
 const mapState = (state) => {
-  const { id, time, title, body } = state.notes.find(note =>
-    state.activeNote === note.id);
+  const { id, time, title, body } =
+  state.notes.find(note => state.activeNote === note.id);
   return {
     id,
     time,

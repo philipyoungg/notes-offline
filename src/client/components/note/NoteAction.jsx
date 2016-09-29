@@ -1,5 +1,6 @@
 import { v4 } from 'uuid';
 import type from '../../constants/actionTypes';
+import findFromIndex from '../../utils/findFromIndex';
 
 export const addNote = (id) => ({
   type: type.ADD_NOTE,
@@ -39,24 +40,13 @@ export const addNoteThenFocusToEdit = () => (dispatch) => {
   dispatch(changeActiveNote(id));
 };
 
-const findObjWithOffset = (props, startIndex, array) => {
-  let i = startIndex + 1;
-  while (array[i][props[0]] !== props[1] && i <= array.length) {
-    i++;
-  }
-  return array[i];
-};
-
 export const archiveThenChangeActiveNote = (id) => (dispatch, getState) => {
-  const activeNote = getState().activeNote;
   dispatch(toggleArchiveNote(id));
-  if (activeNote === id) {
-    //
-    const notes = getState().notes;
-    const currIndex = notes.findIndex(note => note.id === id);
-    const nextId = findObjWithOffset(['archived', 0], currIndex, notes).id;
-    dispatch(changeActiveNote(nextId));
-  } else {
-    return;
+  const activeNoteId = getState().activeNoteId;
+  const notes = getState().notes;
+  if (activeNoteId === id) {
+    const indexOfCurrId = notes.findIndex(note => activeNoteId === note.id);
+    const nextActiveId = findFromIndex(['archived', 0], indexOfCurrId, notes).id;
+    dispatch(changeActiveNote(nextActiveId));
   }
 };

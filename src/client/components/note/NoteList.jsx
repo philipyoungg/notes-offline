@@ -4,7 +4,9 @@ import { connect } from 'react-redux';
 import NoteItem from './NoteItem';
 
 const NoteList = ({ notes }) => (
-  <div className="overflow-scroll mw5 w-100 h-list br b--near-white flex-shrink-0 overflow-scroll">
+  <div
+    className="overflow-scroll mw5 w-100 h-list br b--near-white flex-shrink-0 overflow-scroll"
+  >
     {
       notes.length > 0 ?
         notes.map(note =>
@@ -22,14 +24,12 @@ NoteList.propTypes = {
   notes: PropTypes.array.isRequired,
 };
 
-const filterNoteView = {
-  all: (notes) => notes,
-  active: (notes) => notes.filter(note => note.archived === 0),
-  archived: (notes) => notes.filter(note => note.archived === 1),
-};
+const filterActiveNotes = (notes) => notes.filter(note => note.archived === 0);
+// const filterInactiveNotes = (notes) => notes.filter(note => note.archived === 1);
 
-const mapState = (state) => ({
-  notes: filterNoteView.active(state.notes),
+
+const mapState = ({ notes }) => ({
+  notes: filterActiveNotes(notes),
 });
 
 export default connect(mapState)(NoteList);

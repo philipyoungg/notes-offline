@@ -1,6 +1,6 @@
-import createContsants from '../utils/Utils';
+import createConstants from '../utils/createConstants';
 
-export default createContsants([
+const actionTypes = createConstants([
   'ADD_NOTE',
   'TOGGLE_ARCHIVE_NOTE',
   'CHANGE_ACTIVE_NOTE',
@@ -9,3 +9,5 @@ export default createContsants([
   'UPDATE_NOTE_BODY',
   'TOGGLE_ARCHIVE_NOTE',
 ]);
+
+export default actionTypes;
