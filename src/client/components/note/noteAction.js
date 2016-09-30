@@ -24,10 +24,10 @@ export const changeNoteFilter = (filter) => ({
   filter,
 });
 
-export const updateNoteTitle = (id, body) => ({
+export const updateNoteTitle = (id, title) => ({
   type: type.NOTE_TITLE_UPDATED,
   id,
-  body,
+  title,
 });
 
 export const updateNoteBody = (id, body) => ({

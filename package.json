@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server --progress --color",
-    "build": "webpack --progress --color"
+    "build": "webpack --progress --color",
+    "server": "babel-node src/server/server.js --presets es2015,stage-2"
   },
   "keywords": [],
   "author": "",
@@ -37,6 +38,7 @@
   "dependencies": {
     "debounce": "^1.0.0",
     "es6-promise": "^3.2.1",
+    "express": "^4.14.0",
     "isomorphic-fetch": "^2.2.1",
     "moment": "^2.14.1",
     "npm-install-webpack-plugin": "^4.0.4",
