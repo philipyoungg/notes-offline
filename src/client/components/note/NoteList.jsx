@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import NoteItem from './NoteItem';
+import { filterActiveNotes } from './noteHelper';
 
 const NoteList = ({ notes }) => (
   <div
@@ -23,9 +24,6 @@ const NoteList = ({ notes }) => (
 NoteList.propTypes = {
   notes: PropTypes.array.isRequired,
 };
-
-const filterActiveNotes = (notes) => notes.filter(note => note.archived === 0);
-// const filterInactiveNotes = (notes) => notes.filter(note => note.archived === 1);
 
 
 const mapState = ({ notes }) => ({

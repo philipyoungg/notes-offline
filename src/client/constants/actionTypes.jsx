@@ -1,13 +1,13 @@
 import createConstants from '../utils/createConstants';
 
 const actionTypes = createConstants([
-  'ADD_NOTE',
-  'TOGGLE_ARCHIVE_NOTE',
-  'CHANGE_ACTIVE_NOTE',
-  'CHANGE_NOTE_FILTER',
-  'UPDATE_NOTE_TITLE',
-  'UPDATE_NOTE_BODY',
-  'TOGGLE_ARCHIVE_NOTE',
+  'NOTE_ADDED',
+  'NOTE_TOGGLED',
+  'ACTIVE_NOTE_CHANGED',
+  'NOTE_FILTER_CHANGED',
+  'NOTE_TITLE_UPDATED',
+  'NOTE_BODY_UPDATED',
+  'NOTE_TOGGLED',
 ]);
 
 export default actionTypes;

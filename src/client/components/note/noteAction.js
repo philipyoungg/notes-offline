@@ -1,35 +1,38 @@
 import { v4 } from 'uuid';
+
+import { findIndex, propEq, slice } from 'ramda';
+
 import type from '../../constants/actionTypes';
-import findFromIndex from '../../utils/findFromIndex';
+import getActiveId from './noteHelper';
 
 export const addNote = (id) => ({
-  type: type.ADD_NOTE,
+  type: type.NOTE_ADDED,
   id,
 });
 
 export const toggleArchiveNote = (id) => ({
-  type: type.TOGGLE_ARCHIVE_NOTE,
+  type: type.NOTE_TOGGLED,
   id,
 });
 
 export const changeActiveNote = (id) => ({
-  type: type.CHANGE_ACTIVE_NOTE,
+  type: type.ACTIVE_NOTE_CHANGED,
   id,
 });
 
 export const changeNoteFilter = (filter) => ({
-  type: type.CHANGE_NOTE_FILTER,
+  type: type.NOTE_FILTER_CHANGED,
   filter,
 });
 
 export const updateNoteBody = (id, body) => ({
-  type: type.UPDATE_NOTE_BODY,
+  type: type.NOTE_BODY_UPDATED,
   id,
   body,
 });
 
 export const updateNoteTitle = (id, title) => ({
-  type: type.UPDATE_NOTE_TITLE,
+  type: type.NOTE_TITLE_UPDATED,
   id,
   title,
 });
@@ -42,11 +45,15 @@ export const addNoteThenFocusToEdit = () => (dispatch) => {
 
 export const archiveThenChangeActiveNote = (id) => (dispatch, getState) => {
   dispatch(toggleArchiveNote(id));
-  const activeNoteId = getState().activeNoteId;
-  const notes = getState().notes;
+  const state = getState();
+  const {
+    activeNoteId,
+    notes,
+  } = state;
   if (activeNoteId === id) {
-    const indexOfCurrId = notes.findIndex(note => activeNoteId === note.id);
-    const nextActiveId = findFromIndex(['archived', 0], indexOfCurrId, notes).id;
+    const getCurrIndexId = findIndex(propEq('id', activeNoteId));
+    const currIndex = getCurrIndexId(notes);
+    const nextActiveId = getActiveId(slice(currIndex, notes.length, notes));
     dispatch(changeActiveNote(nextActiveId));
   }
 };

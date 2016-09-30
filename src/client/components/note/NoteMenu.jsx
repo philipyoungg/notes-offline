@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { addNoteThenFocusToEdit } from './NoteAction';
+import { addNoteThenFocusToEdit } from './noteAction';
 
 const NoteMenu = ({ handleClick }) => (
   <div className="fixed flex items-center h3 w-100 pl3 bb b--near-white">

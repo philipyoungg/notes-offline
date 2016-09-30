@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 
-import { notes, activeNote, filterNote } from '../note/NoteReducer';
+import { notes, activeNoteId, filterNote } from '../note/NoteReducer';
 
 export default combineReducers({
   notes,
-  activeNote,
+  activeNoteId,
   filterNote,
 });

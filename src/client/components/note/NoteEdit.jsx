@@ -1,13 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { find, propEq } from 'ramda';
 
-import { updateNoteTitle, updateNoteBody } from './NoteAction';
+import { updateNoteTitle, updateNoteBody } from './noteAction';
 
 import TextArea from './TextArea';
 
 class NoteEdit extends Component {
   componentDidUpdate(prevProps) {
-    if (prevProps.title !== this.props.title) this.node.scrollTop = 0;
+    if (prevProps.id !== this.props.id) this.node.scrollTop = 0;
   }
   render() {
     const { id, time, title, body, handleTitle, handleBody } = this.props;
@@ -21,8 +22,7 @@ class NoteEdit extends Component {
           placeholder="Your title here..."
           type="text"
           value={title}
-          onChange={(input) => { handleTitle(id, input); }}
-          onFocus={(e) => { e.target.select(); }}
+          onChange={(input) => handleTitle(id, input)}
         />
         <p className="f5 black-40 mb4">{time}</p>
         <TextArea id={id} body={body} handleBody={handleBody} />
@@ -41,8 +41,11 @@ NoteEdit.propTypes = {
 };
 
 const mapState = (state) => {
-  const { id, time, title, body } =
-  state.notes.find(note => state.activeNote === note.id);
+  const { notes, activeNoteId } = state;
+  const getActiveNote = find(propEq('id', activeNoteId));
+  const activeNote = getActiveNote(notes);
+
+  const { id, time, title, body } = activeNote;
   return {
     id,
     time,

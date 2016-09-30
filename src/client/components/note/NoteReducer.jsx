@@ -52,9 +52,9 @@ Clearly, not the first time he say this word.`,
   },
 ];
 
-export const activeNote = (state = '0', action) => {
+export const activeNoteId = (state = '0', action) => {
   switch (action.type) {
-    case type.CHANGE_ACTIVE_NOTE:
+    case type.ACTIVE_NOTE_CHANGED:
       return action.id;
     default:
       return state;
@@ -63,7 +63,7 @@ export const activeNote = (state = '0', action) => {
 
 export const filterNote = (state = 'SHOW_ALL', action) => {
   switch (action.type) {
-    case type.CHANGE_NOTE_FILTER:
+    case type.NOTE_FILTER_CHANGED:
       return action.filter;
     default:
       return state;
@@ -72,7 +72,7 @@ export const filterNote = (state = 'SHOW_ALL', action) => {
 
 export const notes = (state = defaultState, action) => {
   switch (action.type) {
-    case type.ADD_NOTE:
+    case type.NOTE_ADDED:
       return [
         {
           id: action.id,
@@ -83,7 +83,7 @@ export const notes = (state = defaultState, action) => {
         },
         ...state,
       ];
-    case type.TOGGLE_ARCHIVE_NOTE:
+    case type.NOTE_TOGGLED:
       return state.map(note => {
         if (action.id !== note.id) return note;
         return {
@@ -91,7 +91,7 @@ export const notes = (state = defaultState, action) => {
           archived: !note.archived,
         };
       });
-    case type.UPDATE_NOTE_TITLE:
+    case type.NOTE_TITLE_UPDATED:
       return state.map(note => {
         if (action.id !== note.id) return note;
         return {
@@ -99,7 +99,7 @@ export const notes = (state = defaultState, action) => {
           title: action.title,
         };
       });
-    case type.UPDATE_NOTE_BODY:
+    case type.NOTE_BODY_UPDATED:
       return state.map(note => {
         if (action.id !== note.id) return note;
         return {
