@@ -1,9 +1,8 @@
 import { v4 } from 'uuid';
-
 import { findIndex, propEq, slice } from 'ramda';
 
 import type from '../../constants/actionTypes';
-import getActiveId from './noteHelper';
+import { getActiveId } from './noteHelper';
 
 export const addNote = (id) => ({
   type: type.NOTE_ADDED,
@@ -25,16 +24,16 @@ export const changeNoteFilter = (filter) => ({
   filter,
 });
 
-export const updateNoteBody = (id, body) => ({
-  type: type.NOTE_BODY_UPDATED,
+export const updateNoteTitle = (id, body) => ({
+  type: type.NOTE_TITLE_UPDATED,
   id,
   body,
 });
 
-export const updateNoteTitle = (id, title) => ({
-  type: type.NOTE_TITLE_UPDATED,
+export const updateNoteBody = (id, body) => ({
+  type: type.NOTE_BODY_UPDATED,
   id,
-  title,
+  body,
 });
 
 export const addNoteThenFocusToEdit = () => (dispatch) => {

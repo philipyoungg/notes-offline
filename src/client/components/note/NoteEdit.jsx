@@ -1,31 +1,42 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { find, propEq } from 'ramda';
+import Textarea from 'react-textarea-autosize';
 
 import { updateNoteTitle, updateNoteBody } from './noteAction';
 
-import TextArea from './TextArea';
 
 class NoteEdit extends Component {
+  componentWillReceiveProps() {
+    this.nodeBody.focus();
+  }
   componentDidUpdate(prevProps) {
-    if (prevProps.id !== this.props.id) this.node.scrollTop = 0;
+    if (prevProps.id !== this.props.id) this.nodeForm.scrollTop = 0;
   }
   render() {
     const { id, time, title, body, handleTitle, handleBody } = this.props;
     return (
       <form
         className="w-100 h-list pa5 overflow-scroll"
-        ref={node => { this.node = node; }}
+        ref={node => { this.nodeForm = node; }}
       >
-        <input
+        <Textarea
+          style={{ resize: 'none' }}
           className="input-reset w-100 bw0 mb1 pa0 f2 b black-70 lh-title"
           placeholder="Your title here..."
           type="text"
           value={title}
-          onChange={(input) => handleTitle(id, input)}
+          onChange={(e) => handleTitle(id, e)}
         />
         <p className="f5 black-40 mb4">{time}</p>
-        <TextArea id={id} body={body} handleBody={handleBody} />
+        <Textarea
+          style={{ resize: 'none' }}
+          ref={node => { this.nodeBody = node; }}
+          className="input-reset w-100 bw0 db black-80 h-list lh-copy"
+          placeholder="Enter new note..."
+          value={body}
+          onChange={(e) => handleBody(id, e)}
+        />
       </form>
     );
   }
