@@ -12,11 +12,6 @@ const app = express();
 app.use(express.static(`${__dirname}/../../dist/app`));
 const port = 3000;
 
-const store = createStore(
-  reducer,
-  applyMiddleware(thunk)
-);
-
 const renderFullPage = (html, preloadedState) => (`
   <!DOCTYPE html>
   <html>
@@ -24,7 +19,7 @@ const renderFullPage = (html, preloadedState) => (`
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tachyons/4.5.2/tachyons.min.css ">
-    <title>It works!</title>
+    <title>It doesn't work at all!</title>
   </head>
   <body class="black-70">
     <div id="app">
@@ -39,14 +34,16 @@ const renderFullPage = (html, preloadedState) => (`
 `);
 
 const handleRender = (req, res) => {
+  const store = createStore(
+    reducer,
+    applyMiddleware(thunk)
+  );
   const html = renderToString(
     <Provider store={store}>
       <App />
     </Provider>
   );
-
   const preloadedState = store.getState();
-
   res.send(renderFullPage(html, preloadedState));
 };
 

@@ -1,3 +1,5 @@
+import { ifElse, map, cond, defaultTo, equals, when, assoc, evolve, prepend, not, propEq }
+from 'ramda';
 import type from '../../constants/actionTypes';
 
 const defaultState = [
@@ -25,7 +27,8 @@ const defaultState = [
     time: '2 January, 2016, 01:00',
     title: 'Change the life, change environment',
     archived: 0,
-    body: `John just got home after a long meeting. He opens his apartment studio and scans the surrounding. There’s his bluetooth speaker, camera,
+    body: `John just got home after a long meeting. He opens his apartment studio and scans the
+    surrounding. There’s his bluetooth speaker, camera,
     iPad, and his favorite couch.
 
 “Gosh, I’m tired. I guess I’ll watch some movies before I have my dinner”.
@@ -52,62 +55,29 @@ Clearly, not the first time he say this word.`,
   },
 ];
 
-export const activeNoteId = (state = '0', action) => {
-  switch (action.type) {
-    case type.ACTIVE_NOTE_CHANGED:
-      return action.id;
-    default:
-      return state;
-  }
-};
+export const activeNoteId = (state = '0', action) =>
+  ifElse(equals(type.ACTIVE_NOTE_CHANGED), action.id, state)(action.type);
 
-export const filterNote = (state = 'SHOW_ALL', action) => {
-  switch (action.type) {
-    case type.NOTE_FILTER_CHANGED:
-      return action.filter;
-    default:
-      return state;
-  }
-};
+export const filterNote = (state = 'SHOW_ALL', action) =>
+  ifElse(equals(type.NOTE_FILTER_CHANGED), action.filter, state)(action.type);
 
 export const notes = (state = defaultState, action) => {
-  switch (action.type) {
-    case type.NOTE_ADDED:
-      return [
-        {
-          id: action.id,
-          title: 'Untitled Note',
-          time: new Date().toString().substr(0, 24),
-          body: '',
-          archived: 0,
-        },
-        ...state,
-      ];
-    case type.NOTE_TOGGLED:
-      return state.map(note => {
-        if (action.id !== note.id) return note;
-        return {
-          ...note,
-          archived: !note.archived,
-        };
-      });
-    case type.NOTE_TITLE_UPDATED:
-      return state.map(note => {
-        if (action.id !== note.id) return note;
-        return {
-          ...note,
-          title: action.title,
-        };
-      });
-    case type.NOTE_BODY_UPDATED:
-      return state.map(note => {
-        if (action.id !== note.id) return note;
-        return {
-          ...note,
-          body: action.body,
-        };
-      });
-    default:
-      return state;
-  }
+  const isActionId = propEq('id', action.id);
+  const toggleArchive = evolve({ archived: not });
+  const changeTitle = assoc('title', action.title);
+  const changeBody = assoc('title', action.title);
+  const newNote = {
+    id: action.id,
+    title: 'Untitled Note',
+    time: new Date().toString().substr(0, 24),
+    body: '',
+    archived: 0,
+  };
+  const newState = cond([
+    [equals(type.NOTE_ADDED), prepend(newNote)(state)],
+    [equals(type.NOTE_TOGGLED), map(when(isActionId, toggleArchive))(state)],
+    [equals(type.NOTE_TITLE_UPDATED), map(when(isActionId, changeTitle))(state)],
+    [equals(type.NOTE_BODY_UPDATED), map(when(isActionId, changeBody))(state)],
+  ])(action.type);
+  return defaultTo(state, newState);
 };
