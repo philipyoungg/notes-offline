@@ -1,5 +1,5 @@
-import { ifElse, map, cond, defaultTo, equals, when, assoc, evolve, prepend, not, propEq }
-from 'ramda';
+import { map, when, assoc, evolve, prepend, not, propEq } from 'ramda';
+import createReducer from '../../utils/createReducer';
 import type from '../../constants/actionTypes';
 
 const defaultState = [
@@ -27,8 +27,8 @@ const defaultState = [
     time: '2 January, 2016, 01:00',
     title: 'Change the life, change environment',
     archived: 0,
-    body: `John just got home after a long meeting. He opens his apartment studio and scans the
-    surrounding. There’s his bluetooth speaker, camera,
+    body: `John just got home after a long meeting. He opens his apartment studio and scans
+    the surrounding. There’s his bluetooth speaker, camera,
     iPad, and his favorite couch.
 
 “Gosh, I’m tired. I guess I’ll watch some movies before I have my dinner”.
@@ -55,29 +55,45 @@ Clearly, not the first time he say this word.`,
   },
 ];
 
-export const activeNoteId = (state = '0', action) =>
-  ifElse(equals(type.ACTIVE_NOTE_CHANGED), action.id, state)(action.type);
+// addNewNote:: [a] -> {k: v} -> [a]
+const addNewNote = (state, action) =>
+  prepend(action.note)(state);
 
-export const filterNote = (state = 'SHOW_ALL', action) =>
-  ifElse(equals(type.NOTE_FILTER_CHANGED), action.filter, state)(action.type);
+// toggleSpecificNote:: [a] -> {k: v} -> [a]
+const toggleSpecificNote = (state, action) =>
+  map(when(propEq('id', action.id), evolve({ archived: not })))(state);
 
-export const notes = (state = defaultState, action) => {
-  const isActionId = propEq('id', action.id);
-  const toggleArchive = evolve({ archived: not });
-  const changeTitle = assoc('title', action.title);
-  const changeBody = assoc('title', action.title);
-  const newNote = {
-    id: action.id,
-    title: 'Untitled Note',
-    time: new Date().toString().substr(0, 24),
-    body: '',
-    archived: 0,
-  };
-  const newState = cond([
-    [equals(type.NOTE_ADDED), prepend(newNote)(state)],
-    [equals(type.NOTE_TOGGLED), map(when(isActionId, toggleArchive))(state)],
-    [equals(type.NOTE_TITLE_UPDATED), map(when(isActionId, changeTitle))(state)],
-    [equals(type.NOTE_BODY_UPDATED), map(when(isActionId, changeBody))(state)],
-  ])(action.type);
-  return defaultTo(state, newState);
+// updateSpecificNoteTitle:: [a] -> {k: v} -> [a]
+const updateSpecificNoteTitle = (state, action) =>
+  map(when(propEq('id', action.id), assoc('title', action.title)))(state);
+
+// updateSpecificNoteBody:: [a] -> {k: v} -> [a]
+const updateSpecificNoteBody = (state, action) =>
+  map(when(propEq('id', action.id), assoc('body', action.body)))(state);
+
+// updateActiveNoteId:: String -> {k: v} -> String
+const updateActiveNoteId = (state, action) =>
+  action.id;
+
+// updateFilterNote:: String -> {k: v} -> String
+const updateFilterNote = (state, action) =>
+  action.filter;
+
+const noteHandlers = {
+  [type.NOTE_ADDED]: addNewNote,
+  [type.NOTE_TOGGLED]: toggleSpecificNote,
+  [type.NOTE_TITLE_UPDATED]: updateSpecificNoteTitle,
+  [type.NOTE_BODY_UPDATED]: updateSpecificNoteBody,
 };
+
+const activeNoteIdHandlers = {
+  [type.ACTIVE_NOTE_CHANGED]: updateActiveNoteId,
+};
+
+const filterNoteHandlers = {
+  [type.NOTE_FILTER_CHANGED]: updateFilterNote,
+};
+
+export const activeNoteId = createReducer('0', activeNoteIdHandlers);
+export const notes = createReducer(defaultState, noteHandlers);
+export const filterNote = createReducer('SHOW_ALL', filterNoteHandlers);

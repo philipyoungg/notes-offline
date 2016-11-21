@@ -4,9 +4,9 @@ import { findIndex, propEq, slice } from 'ramda';
 import type from '../../constants/actionTypes';
 import { getActiveId } from './noteHelper';
 
-export const addNote = (id) => ({
+export const addNote = (note) => ({
   type: type.NOTE_ADDED,
-  id,
+  note,
 });
 
 export const toggleArchiveNote = (id) => ({
@@ -37,21 +37,24 @@ export const updateNoteBody = (id, body) => ({
 });
 
 export const addNoteThenFocusToEdit = () => (dispatch) => {
-  const id = v4();
-  dispatch(addNote(id));
-  dispatch(changeActiveNote(id));
+  const newId = v4();
+  const note = {
+    id: newId,
+    title: 'Untitled Note',
+    time: new Date().toString().substr(0, 24),
+    body: '',
+    archived: 0,
+  };
+  dispatch(addNote(note));
+  dispatch(changeActiveNote(newId));
 };
 
 export const archiveThenChangeActiveNote = (id) => (dispatch, getState) => {
   dispatch(toggleArchiveNote(id));
   const state = getState();
-  const {
-    activeNoteId,
-    notes,
-  } = state;
+  const { activeNoteId, notes } = state;
   if (activeNoteId === id) {
-    const getCurrIndexId = findIndex(propEq('id', activeNoteId));
-    const currIndex = getCurrIndexId(notes);
+    const currIndex = findIndex(propEq('id', activeNoteId))(notes);
     const nextActiveId = getActiveId(slice(currIndex, notes.length, notes));
     dispatch(changeActiveNote(nextActiveId));
   }

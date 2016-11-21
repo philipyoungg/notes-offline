@@ -27,6 +27,7 @@ class NoteEdit extends Component {
           type="text"
           value={title}
           onChange={(e) => handleTitle(id, e)}
+          onFocus={(e) => e.target.select()}
         />
         <p className="f5 black-40 mb4">{time}</p>
         <Textarea

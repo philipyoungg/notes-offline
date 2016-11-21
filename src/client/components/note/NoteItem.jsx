@@ -35,7 +35,7 @@ const mapState = ({ activeNoteId }, ownProps) => ({
   active: activeNoteId === ownProps.id,
 });
 
-const mapDispatch = (dispatch) => ({
+const mapDispatch = dispatch => ({
   handleClick: (id) => dispatch(changeActiveNote(id)),
   handleDelete: (e, id) => {
     e.stopPropagation();
