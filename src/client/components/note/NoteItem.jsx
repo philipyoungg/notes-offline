@@ -7,13 +7,12 @@ const NoteItem = ({ id, time, title, body, active, handleClick, handleDelete }) 
   return (
     <div
       onClick={() => handleClick(id)}
-      className={`link relative pa3 db bb b--near-white ${bg}`}
+      className={`link relative pa3 db bb b--near-white pointer ${bg}`}
     >
       <div className="cf">
         <p className="fl f7 mb2 black-40">{time}</p>
         <p className="fr f7 mb2 black-30 underline" onClick={(e) => handleDelete(e, id)}>delete</p>
-      </div>
-      <h2 className="black-70 f6 mb1">{title}</h2>
+      </div>      <h2 className="black-70 f6 mb1">{title}</h2>
       <p className="f6 mb0 black-40 lh-title">
         {body.length > 96 ? `${body.substr(0, 96)}...` : body}
       </p>
