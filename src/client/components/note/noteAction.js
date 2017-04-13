@@ -36,26 +36,30 @@ export const updateNoteBody = (id, body) => ({
   body,
 });
 
-export const addNoteThenFocusToEdit = () => (dispatch) => {
-  const newId = v4();
-  const note = {
-    id: newId,
-    title: 'Untitled Note',
-    time: new Date().toString().substr(0, 24),
-    body: '',
-    archived: 0,
-  };
-  dispatch(addNote(note));
-  dispatch(changeActiveNote(newId));
-};
+export const addNoteThenFocusToEdit = () =>
+  (dispatch) =>
+    {
+      const newId = v4();
+      const note = {
+        id: newId,
+        title: 'Untitled Note',
+        time: new Date().toString().substr(0, 24),
+        body: '',
+        archived: 0,
+      };
+      dispatch(addNote(note));
+      dispatch(changeActiveNote(newId));
+    };
 
-export const archiveThenChangeActiveNote = (id) => (dispatch, getState) => {
-  dispatch(toggleArchiveNote(id));
-  const state = getState();
-  const { activeNoteId, notes } = state;
-  if (activeNoteId === id) {
-    const currIndex = findIndex(propEq('id', activeNoteId))(notes);
-    const nextActiveId = getActiveId(slice(currIndex, notes.length, notes));
-    dispatch(changeActiveNote(nextActiveId));
-  }
-};
+export const archiveThenChangeActiveNote = (id) =>
+  (dispatch, getState) =>
+    {
+      dispatch(toggleArchiveNote(id));
+      const state = getState();
+      const { activeNoteId, notes } = state;
+      if (activeNoteId === id) {
+        const currIndex = findIndex(propEq('id', activeNoteId))(notes);
+        const nextActiveId = getActiveId(slice(currIndex, notes.length, notes));
+        dispatch(changeActiveNote(nextActiveId));
+      }
+    };
