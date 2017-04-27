@@ -16,7 +16,7 @@ const NoteList = ({ notes }) => (
             {...note}
           />)
         :
-        <p>No active notes</p>
+        <p className="tc pa4 pt5">Create new notes &uarr;</p>
     }
   </div>
 );
